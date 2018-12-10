@@ -4,6 +4,12 @@ module Main(main) where
     import Graphics.Gloss.Data.ViewPort
     import Graphics.Gloss.Interface.Pure.Game
 
+    fps :: Int
+    fps = 60
+
+    dificuldade :: Float -> Float
+    dificuldade speed = 1.2 * speed
+
     window :: Display
     window = InWindow "Race" (600, 600) (10, 10)
     
@@ -47,9 +53,6 @@ module Main(main) where
             x' = x + vx * seconds
             y' = y + vy * seconds
 
-    fps :: Int
-    fps = 60
-
     type Radius = Float 
     type Position = (Float, Float)
 
@@ -82,13 +85,13 @@ module Main(main) where
                 (vx, vy) = ballVel game
                 vx' = if (sideCollision (ballLoc game) radius)
                     then
-                        -vx
+                        dificuldade (-vx)
                     else
                         vx
 
                 vy' = if ((wallCollision (ballLoc game) radius) || (paddleCollision (ballLoc game) radius game))
                     then
-                        -vy
+                        dificuldade (-vy)
                     else
                         vy
 
