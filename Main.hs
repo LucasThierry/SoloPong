@@ -8,7 +8,7 @@ module Main(main) where
     fps = 60
 
     dificuldade :: Float -> Float
-    dificuldade speed = 1.2 * speed
+    dificuldade speed = 1.05 * speed
 
     window :: Display
     window = InWindow "Race" (600, 600) (10, 10)
@@ -85,13 +85,13 @@ module Main(main) where
                 (vx, vy) = ballVel game
                 vx' = if (sideCollision (ballLoc game) radius)
                     then
-                        dificuldade (-vx)
+                        -vx
                     else
                         vx
 
                 vy' = if ((wallCollision (ballLoc game) radius) || (paddleCollision (ballLoc game) radius game))
                     then
-                        dificuldade (-vy)
+                        dificuldade(-vy)
                     else
                         vy
 
